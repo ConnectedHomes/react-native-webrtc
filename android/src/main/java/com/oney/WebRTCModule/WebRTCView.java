@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.util.Log;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 
 import java.lang.reflect.InvocationTargetException;
@@ -23,6 +24,10 @@ import org.webrtc.RendererCommon.ScalingType;
 import org.webrtc.SurfaceViewRenderer;
 import org.webrtc.VideoRenderer;
 import org.webrtc.VideoTrack;
+
+import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.uimanager.events.RCTEventEmitter;
 
 public class WebRTCView extends ViewGroup {
     /**
@@ -304,6 +309,14 @@ public class WebRTCView extends ViewGroup {
             @Override
             public void run() {
                 Log.d(TAG, "First frame rendered.");
+
+                WritableMap event = Arguments.createMap();
+                ReactContext reactContext = (ReactContext) getContext();
+                reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                        getId(),
+                        "onFirstFrame",
+                        event
+                );
                 getSurfaceViewRenderer().setBackgroundColor(Color.TRANSPARENT);
             }
         });
@@ -456,6 +469,7 @@ public class WebRTCView extends ViewGroup {
                 getLeft(), getTop(), getRight(), getBottom());
         }
     }
+
 
     /**
      * Sets the indicator which determines whether this {@code WebRTCView} is to
