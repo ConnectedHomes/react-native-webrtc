@@ -17,5 +17,5 @@ android {
 
 dependencies {
     compile 'com.facebook.react:react-native:+'
-    compile group: 'io.pristine', name: 'libjingle', version: '9456', ext: 'pom'
+    compile 'org.webrtc:google-webrtc:1.0.22672'
 }
