@@ -33,7 +33,7 @@ import static android.os.Build.VERSION.SDK_INT;
 
 public class WebRTCView extends ViewGroup {
 
-    public final boolean isSurfaceRendererWorksFine = SDK_INT > 23;
+    public final boolean isSurfaceRendererWorksFine = false;
     /**
      * The scaling type to be utilized by default.
      *
